@@ -12,6 +12,18 @@
     <artifactId>service</artifactId>
     <packaging>pom</packaging>
     <dependencies>
+        <dependency>
+            <groupId>com.ririsisi</groupId>
+            <artifactId>service_base</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.ririsisi</groupId>
+            <artifactId>common_utils</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+
 <!--        <dependency>-->
 <!--            <groupId>org.springframework.cloud</groupId>-->
 <!--            <artifactId>spring-cloud-starter-netflix-ribbon</artifactId>-->
