@@ -103,7 +103,7 @@ public class EduTeacherController {
         String begin = teacherQuery.getBegin();
         String end = teacherQuery.getEnd();
 
-        // 判断条件值是否为空，如果不为空，则拼接条件
+        // 判断条件值是否为空，如果不为空，则拼接条件(数据库字段)
         if (!StringUtils.isEmpty(name)) {
             // 构建条件（模糊查询）
             wrapper.like("name",name);
@@ -132,6 +132,20 @@ public class EduTeacherController {
         List<EduTeacher> records = pageTeacher.getRecords(); // 每页数据的list集合
 
         return R.ok().data("total",total).data("rows",records);
+
+    }
+
+    // 5.添加讲师接口的方法
+    @PostMapping("addTeacher")
+    public R addTeacher(@RequestBody EduTeacher eduTeacher) {
+
+        boolean save = teacherService.save(eduTeacher);
+
+        if (save) {
+            return R.ok();
+        } else {
+            return R.error();
+        }
 
     }
 
