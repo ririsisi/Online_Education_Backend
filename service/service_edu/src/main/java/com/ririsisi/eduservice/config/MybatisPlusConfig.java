@@ -13,7 +13,7 @@ import org.springframework.context.annotation.Configuration;
  */
 @Configuration
 @MapperScan("com.ririsisi.eduservice.mapper")
-public class EduConfig {
+public class MybatisPlusConfig {
 
     /**
      * 逻辑删除插件

@@ -14,9 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * <p>
@@ -29,6 +27,7 @@ import java.util.Map;
 @Api(description = "讲师管理")
 @RestController
 @RequestMapping("/eduservice/teacher")
+@CrossOrigin // 解决跨域
 public class EduTeacherController {
 
     // 注入service
@@ -62,6 +61,7 @@ public class EduTeacherController {
 
     }
 
+    @ApiOperation(value = "查询所有讲师，带分页")
     @GetMapping("pageTeacher/{current}/{limit}")
     public R pageListTeacher(@PathVariable Long current,
                              @PathVariable Long limit) {
@@ -76,17 +76,18 @@ public class EduTeacherController {
 
         List<EduTeacher> records = pageTeacher.getRecords(); // 每页数据的list集合
 
-        Map map = new HashMap();
-        map.put("total", total);
-        map.put("rows", records);
+//        Map map = new HashMap();
+//        map.put("total", total);
+//        map.put("rows", records);
+//
+//        return R.ok().data(map);
 
-        return R.ok().data(map);
-
-//        return R.ok().data("total",total).data("rows",records);
+        return R.ok().data("total",total).data("rows",records);
 
     }
 
     // 4. 条件查询带分页的方法
+    @ApiOperation(value = "条件查找所有讲师，带分页")
     @PostMapping("pageTeacherCondition/{current}/{limit}")
     public R pageTeacherCondition(@PathVariable long current, @PathVariable long limit,
                                   @RequestBody(required = false) TeacherQuery teacherQuery) {
@@ -124,6 +125,9 @@ public class EduTeacherController {
             wrapper.le("gmt_create", end);
         }
 
+        // 排序条件
+        wrapper.orderByDesc("gmt_create");
+
         //调用方法实现条件查询分页
         teacherService.page(pageTeacher, wrapper);
 
@@ -136,6 +140,7 @@ public class EduTeacherController {
     }
 
     // 5.添加讲师接口的方法
+    @ApiOperation(value = "添加讲师")
     @PostMapping("addTeacher")
     public R addTeacher(@RequestBody EduTeacher eduTeacher) {
 
@@ -148,6 +153,31 @@ public class EduTeacherController {
         }
 
     }
+
+    // 6.根据讲师id进行查询
+    @ApiOperation(value = "根据id查询讲师")
+    @GetMapping("getTeacher/{id}")
+    public R getTeacher(@PathVariable String id) {
+
+        EduTeacher eduTeacher = teacherService.getById(id);
+        return R.ok().data("teacher",eduTeacher);
+
+    }
+
+    // 7.讲师修改功能
+    @ApiOperation(value = "更新讲师信息")
+    @PostMapping("updateTeacher")
+    public R updateTeacher (@RequestBody EduTeacher eduTeacher) {
+
+        boolean flag = teacherService.updateById(eduTeacher);
+
+        if (flag) {
+            return R.ok();
+        } else {
+            return R.error();
+        }
+    }
+
 
 }
 

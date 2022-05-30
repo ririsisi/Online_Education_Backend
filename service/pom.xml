@@ -11,16 +11,15 @@
 
     <artifactId>service</artifactId>
     <packaging>pom</packaging>
+    <modules>
+        <module>service-oos</module>
+    </modules>
     <dependencies>
+
+        <!--在依赖中引入service_base-->
         <dependency>
             <groupId>com.ririsisi</groupId>
             <artifactId>service_base</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-        </dependency>
-
-        <dependency>
-            <groupId>com.ririsisi</groupId>
-            <artifactId>common_utils</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
 
@@ -77,6 +76,7 @@
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
         </dependency>
+
         <!--xls-->
         <dependency>
             <groupId>org.apache.poi</groupId>

@@ -21,7 +21,7 @@ public class SwaggerConfig {
     @Bean
     public Docket webApiConfig() {
         return new Docket(DocumentationType.SWAGGER_2)
-                .groupName("EduApi")
+                .groupName("教师管理系统Api")
                 .apiInfo(webApiInfo())
                 .select()
                 .paths(Predicates.not(PathSelectors.regex("/admin/.*")))
